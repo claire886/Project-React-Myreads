@@ -3,12 +3,6 @@ import * as BooksAPI from './BooksAPI'
 import './App.css'
 import ListBooks from './ListBooks'
 
-
-BooksAPI.getAll()
-  .then((books) => {
-    console.log('allBooks', books)
-  })
-
 BooksAPI.search('Art')
   .then((result) => {
     console.log('result', result)
@@ -16,6 +10,7 @@ BooksAPI.search('Art')
 
 class BooksApp extends React.Component {
   state = {
+    allBooks: [],
     /**
      * TODO: Instead of using this state variable to keep track of which page
      * we're on, use the URL in the browser's address bar. This will ensure that
@@ -23,6 +18,13 @@ class BooksApp extends React.Component {
      * pages, as well as provide a good URL they can bookmark and share.
      */
     showSearchPage: false
+  }
+
+  componentDidMount() {
+    BooksAPI.getAll()
+      .then((books) => {
+        this.setState({ allBooks: books })
+    })
   }
 
   render() {
@@ -50,7 +52,7 @@ class BooksApp extends React.Component {
             </div>
           </div>
         ) : (
-          <ListBooks />
+          <ListBooks allBooks={this.state.allBooks}/>
         )}
       </div>
     )
