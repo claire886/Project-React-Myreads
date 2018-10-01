@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import BookshelfBooks from './BookshelfBooks'
 
 class ListBooks extends React.Component {
 	static propTypes = {
@@ -7,6 +8,11 @@ class ListBooks extends React.Component {
 	}
 
 	render() {
+		const { allBooks } = this.props
+	//	const { currentlyRead } = this.state
+
+console.log('allBooks props', allBooks)
+
 		return (
 		<div className="list-books">
             <div className="list-books-title">
@@ -16,6 +22,7 @@ class ListBooks extends React.Component {
               <div>
                 <div className="bookshelf">
                   <h2 className="bookshelf-title">Currently Reading</h2>
+            <BookshelfBooks allBooks={ allBooks } bookshelfTitle= 'currentlyReading' />
                   <div className="bookshelf-books">
                     <ol className="books-grid">
                       <li>
@@ -32,7 +39,7 @@ class ListBooks extends React.Component {
                               </select>
                             </div>
                           </div>
-                          <div className="book-title">To Kill a Mockingbird</div>
+                          <div className="book-title">To Kill a mockingbird</div>
                           <div className="book-authors">Harper Lee</div>
                         </div>
                       </li>
