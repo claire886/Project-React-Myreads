@@ -27,7 +27,12 @@ class BooksApp extends React.Component {
     })
   }
 
+  moveBook(book, shelf) {
+    BooksAPI.update(book, shelf)
+  }
+
   render() {
+this.moveBook({id: "nggnmAEACAAJ"}, 'read')
     return (
       <div className="app">
         {this.state.showSearchPage ? (
@@ -52,7 +57,7 @@ class BooksApp extends React.Component {
             </div>
           </div>
         ) : (
-          <ListBooks allBooks={this.state.allBooks}/>
+          <ListBooks allBooks={this.state.allBooks} />
         )}
       </div>
     )

@@ -1,7 +1,13 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
 
 class BookshelfBooks extends React.Component {
+	static propTypes = {
+		bookshelfTitle: PropTypes.string.isRequired,
+		allBooks: PropTypes.array.isRequired
+	}
+
 	render() {
 		const bookshelfTitle = this.props.bookshelfTitle
 		const allBooks = this.props.allBooks.filter(book => (book.shelf === bookshelfTitle))
@@ -15,12 +21,11 @@ class BookshelfBooks extends React.Component {
 	              <div className="book-top">
 	                <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${ book.imageLinks.smallThumbnail })` }}></div>
 	                <div className="book-shelf-changer">
-	                  <select>
+	                  <select defaultValue={ bookshelfTitle }>
 	                    <option value="move" disabled>Move to...</option>
-	                    <option value="currentlyReading">Currently Reading</option>
-	                    <option value="wantToRead">Want to Read</option>
-	                    <option value="read">Read</option>
-	                    <option value="none">None</option>
+	                    <option id='reading' value="currentlyReading">Currently Reading</option>
+	                    <option id='wantRead' value="wantToRead">Want to Read</option>
+	                    <option id='read' value="read">Read</option>
 	                  </select>
 	                </div>
 	              </div>
