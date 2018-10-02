@@ -8,9 +8,9 @@ class BookshelfBooks extends React.Component {
 		onMoveBook: PropTypes.func.isRequired
 	}
 
-	moveToShelf(book, evalue) {
-		console.log('targetValue', evalue, book)
-		this.props.onMoveBook(book, evalue)
+	moveToShelf(book, targetValue) {
+		console.log('targetValue', targetValue, book)
+		this.props.onMoveBook(book, targetValue)
 	}
 
 	render() {

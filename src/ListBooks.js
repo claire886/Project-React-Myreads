@@ -5,7 +5,8 @@ import BookshelfBooks from './BookshelfBooks'
 class ListBooks extends React.Component {
 	static propTypes = {
 		allBooks: PropTypes.array.isRequired,
-		onMoveBook: PropTypes.func.isRequired
+		onMoveBook: PropTypes.func.isRequired,
+	    onPageSetting: PropTypes.func.isRequired
 	}
 
 	render() {
@@ -36,7 +37,7 @@ console.log('allBooks props', allBooks)
               </div>
             </div>
             <div className="open-search">
-              <a onClick={() => this.setState({ showSearchPage: true })}>Add a book</a>
+              <a onClick={() => this.props.onPageSetting(true)}>Add a book</a>
             </div>
           </div>
 		)
