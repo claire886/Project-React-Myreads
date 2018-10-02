@@ -11,9 +11,6 @@ class ListBooks extends React.Component {
 
 	render() {
 		const { allBooks, onMoveBook } = this.props
-	//	const { currentlyRead } = this.state
-
-console.log('allBooks props', allBooks)
 
 		return (
 		<div className="list-books">

@@ -4,11 +4,6 @@ import './App.css'
 import ListBooks from './ListBooks'
 import SearchBooks from './SearchBooks'
 
-BooksAPI.search('Art')
-  .then((result) => {
-    console.log('result', result)
-  })
-
 class BooksApp extends React.Component {
   state = {
     allBooks: [],
@@ -18,7 +13,7 @@ class BooksApp extends React.Component {
      * users can use the browser's back and forward buttons to navigate between
      * pages, as well as provide a good URL they can bookmark and share.
      */
-    showSearchPage: false
+    showSearchPage: true
   }
 
   componentDidMount() {
