@@ -4,11 +4,12 @@ import BookshelfBooks from './BookshelfBooks'
 
 class ListBooks extends React.Component {
 	static propTypes = {
-		allBooks: PropTypes.array.isRequired
+		allBooks: PropTypes.array.isRequired,
+		onMoveBook: PropTypes.func.isRequired
 	}
 
 	render() {
-		const { allBooks } = this.props
+		const { allBooks, onMoveBook } = this.props
 	//	const { currentlyRead } = this.state
 
 console.log('allBooks props', allBooks)
@@ -22,15 +23,15 @@ console.log('allBooks props', allBooks)
               <div>
                 <div className="bookshelf">
                   <h2 className="bookshelf-title">Currently Reading</h2>
-		            <BookshelfBooks allBooks={ allBooks } bookshelfTitle= 'currentlyReading' />
+		            <BookshelfBooks allBooks={ allBooks } bookshelfTitle= 'currentlyReading' onMoveBook={ onMoveBook } />
                 </div>
                 <div className="bookshelf">
                   <h2 className="bookshelf-title">Want to Read</h2>
-                    <BookshelfBooks allBooks={ allBooks } bookshelfTitle= 'wantToRead' />
+                    <BookshelfBooks allBooks={ allBooks } bookshelfTitle= 'wantToRead' onMoveBook={ onMoveBook } />
                 </div>
                 <div className="bookshelf">
                   <h2 className="bookshelf-title">Read</h2>
-                    <BookshelfBooks allBooks={ allBooks } bookshelfTitle= 'read' />
+                    <BookshelfBooks allBooks={ allBooks } bookshelfTitle= 'read' onMoveBook={ onMoveBook } />
                 </div>
               </div>
             </div>

@@ -1,11 +1,16 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-
 class BookshelfBooks extends React.Component {
 	static propTypes = {
 		bookshelfTitle: PropTypes.string.isRequired,
-		allBooks: PropTypes.array.isRequired
+		allBooks: PropTypes.array.isRequired,
+		onMoveBook: PropTypes.func.isRequired
+	}
+
+	moveToShelf(book, evalue) {
+		console.log('targetValue', evalue, book)
+		this.props.onMoveBook(book, evalue)
 	}
 
 	render() {
@@ -16,16 +21,16 @@ class BookshelfBooks extends React.Component {
 			<div className="bookshelf-books">
 	        <ol className="books-grid">
 	        {allBooks.map(book => (
-	        	<li key={book.id}>
+	        	<li key={book.id} onChange={ (e) => this.moveToShelf(book, e.target.value) }>
 	            <div className="book">
 	              <div className="book-top">
 	                <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${ book.imageLinks.smallThumbnail })` }}></div>
 	                <div className="book-shelf-changer">
-	                  <select defaultValue={ bookshelfTitle }>
+	                  <select defaultValue={ bookshelfTitle } >
 	                    <option value="move" disabled>Move to...</option>
-	                    <option id='reading' value="currentlyReading">Currently Reading</option>
-	                    <option id='wantRead' value="wantToRead">Want to Read</option>
-	                    <option id='read' value="read">Read</option>
+	                    <option value="currentlyReading">Currently Reading</option>
+	                    <option value="wantToRead">Want to Read</option>
+	                    <option value="read">Read</option>
 	                  </select>
 	                </div>
 	              </div>
