@@ -36,13 +36,14 @@ class BooksApp extends React.Component {
   }
 
   render() {
+console.log('booksInShelf', this.state.allBooks)      
     return (
       <div className="app">
         {this.state.showSearchPage ? (
-          <SearchBooks onPageSetting={ this.pageSetting } />
+          <SearchBooks onPageSetting={this.pageSetting} onMoveBook={this.moveBook} allBooks={this.state.allBooks}/>
         ) : (
           <div>
-            <ListBooks allBooks={this.state.allBooks} onMoveBook={ this.moveBook } onPageSetting={ this.pageSetting } />
+            <ListBooks allBooks={this.state.allBooks} onMoveBook={ this.moveBook } onPageSetting={ this.pageSetting }/>
           </div>
         )}
       </div>
