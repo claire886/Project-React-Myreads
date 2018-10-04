@@ -3,25 +3,23 @@ import PropTypes from 'prop-types'
 
 class BookshelfBooks extends React.Component {
 	static propTypes = {
+		// 'bookshelfTitle' for identifying bookshelf
 		bookshelfTitle: PropTypes.string.isRequired,
 		allBooks: PropTypes.array.isRequired,
 		onMoveBook: PropTypes.func.isRequired
 	}
 
-	moveToShelf(book, targetValue) {
-		console.log('targetValue', targetValue, book)
-		this.props.onMoveBook(book, targetValue)
-	}
-
 	render() {
 		const bookshelfTitle = this.props.bookshelfTitle
+		// Filtering books according to bookshelf(bookshelfTitile)
+		// so that the correct shelf is selected in select options
 		const allBooks = this.props.allBooks.filter(book => (book.shelf === bookshelfTitle))
 
 		return (
 			<div className="bookshelf-books">
 	        <ol className="books-grid">
 	        {allBooks.map(book => (
-	        	<li key={book.id} onChange={(e) => this.moveToShelf(book, e.target.value)}>
+	        	<li key={book.id} onChange={(e) => this.props.onMoveBook(book, e.target.value)}>
 	            <div className="book">
 	              <div className="book-top">
 	                <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${ book.imageLinks.smallThumbnail })` }}></div>

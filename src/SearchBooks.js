@@ -6,51 +6,54 @@ import { Link } from 'react-router-dom'
 class SearchBooks extends React.Component {
 
   static propTypes = {
-    onPageSetting: PropTypes.func.isRequired,
     onMoveBook: PropTypes.func.isRequired,
     allBooks: PropTypes.array.isRequired
 }
 
   state = {
+    // use 'resultBooks' for search result data
     resultBooks: [],
     query: ''
   }
 
+  // Use BooksAPI.search to search books
+  // Save search result in 'resultBooks' according to query
   searchResult = (query) => {
     this.setState({query: query})
-console.log('queryString', query)
     if (query) {
       BooksAPI.search(query)
       .then((result) => {
         this.setState({resultBooks: result})
-console.log('queryResult', this.state.resultBooks)
       })
       .catch((err) => {
         console.log('noResult', this.state.resultBooks)
     })}
   }
 
-  moveToShelf = (book, targetValue) => {
-console.log('targetValue', targetValue, book)
-    this.props.onMoveBook(book, targetValue)
-  }
-
   render() {
-    const moveToShelf = this.moveToShelf
+    const moveToShelf = this.props.onMoveBook
     const allBooks = this.props.allBooks
+    // Generating an array of book id for books in bookshelf.
+    // It can be used to select correct shelf in select options
     let idInShelf = this.props.allBooks.map(book => book.id)
+    // 'bookList' for saving HTML for <ol .book-grid>
     let bookList = []
-    
+    // If both book query and search result are not empty,
+    // book-grid will be built according rearch result by map method
     if (this.state.query && this.state.resultBooks.length > 0) {
       bookList = this.state.resultBooks.map(function(book) {
         let defaultShelf ='none'
+        // Use 'bookImage' for url link in case the book object doesn't have property for url link.
         let bookImage = ''
-    
+        
+        // Check if book is already in bookshelf.
+        // If the book can be found in bookshelf, using filter method to look for its bookshelf.
+        // The select options will be assigned according to bookshelf.
         if (idInShelf.indexOf(book.id) !== -1) {
           const bookObject = allBooks.filter(bookChecked => bookChecked.id === book.id)
           defaultShelf = bookObject[0].shelf
         }
-
+        // If book has property of imageLinks, 'bookImage' is set to be book.imageLinks.thumbnail
         if (book.hasOwnProperty('imageLinks')) {
           bookImage = book.imageLinks.thumbnail
         }
@@ -82,18 +85,8 @@ console.log('targetValue', targetValue, book)
         <div className="search-books-bar">
           <Link className="close-search" to='/'>Close</Link>
           <div className="search-books-input-wrapper">
-            {/*
-              NOTES: The search from BooksAPI is limited to a particular set of search terms.
-              You can find these search terms here:
-              https://github.com/udacity/reactnd-project-myreads-starter/blob/master/SEARCH_TERMS.md
-
-              However, remember that the BooksAPI.search method DOES search by title or author. So, don't worry if
-              you don't find a specific author or title. Every search is limited by search terms.
-            */}
             <input type="text" placeholder="Search by title or author"
-              onChange={(e) => this.searchResult(e.target.value)}
-            />
-
+              onChange={(e) => this.searchResult(e.target.value)}/>
           </div>
         </div>
         <div className="search-books-results">

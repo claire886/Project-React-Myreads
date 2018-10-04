@@ -7,26 +7,18 @@ import { Route } from 'react-router-dom'
 
 class BooksApp extends React.Component {
   state = {
+    // Use allBooks to save books in bookshelf
     allBooks: [],
-    /**
-     * TODO: Instead of using this state variable to keep track of which page
-     * we're on, use the URL in the browser's address bar. This will ensure that
-     * users can use the browser's back and forward buttons to navigate between
-     * pages, as well as provide a good URL they can bookmark and share.
-     */
   }
 
   componentDidMount() {
+    // Use BooksAPI.getAll() to extract books in bookshelf
     BooksAPI.getAll()
       .then((books) => {
         this.setState({ allBooks: books })
     })
   }
-
-  pageSetting = (setting) => {
-    this.setState({ showSearchPage: setting })
-  }
-
+  // function for move books between shelves
   moveBook = (book, shelf) => {
     BooksAPI.update(book, shelf)
     BooksAPI.getAll()
@@ -36,18 +28,17 @@ class BooksApp extends React.Component {
   }
 
   render() {
-console.log('booksInShelf', this.state.allBooks)      
     return (
       <div className="app">
         <Route exact path='/' render={() => (
-          <ListBooks allBooks={this.state.allBooks} onMoveBook={ this.moveBook } onPageSetting={ this.pageSetting }/>
+          // Showing books in shelves by component 'ListBook'
+          <ListBooks allBooks={ this.state.allBooks } onMoveBook={ this.moveBook } onPageSetting={ this.pageSetting }/>
         )}/>
         <Route path='/search' render={() => (
-          <SearchBooks onPageSetting={this.pageSetting} onMoveBook={this.moveBook} allBooks={this.state.allBooks}/>
+          // Showing search page by component 'SearchBooks'
+          <SearchBooks onPageSetting={ this.pageSetting } onMoveBook={ this.moveBook } allBooks={ this.state.allBooks }/>
         )}/>
       </div>
-    )
-  }
-}
+    )}}
 
 export default BooksApp
