@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import * as BooksAPI from './BooksAPI'
+import { Link } from 'react-router-dom'
 
 class SearchBooks extends React.Component {
 
@@ -16,8 +17,8 @@ class SearchBooks extends React.Component {
   }
 
   searchResult = (query) => {
-    this.setState({query: query.trim()})
-
+    this.setState({query: query})
+console.log('queryString', query)
     if (query) {
       BooksAPI.search(query)
       .then((result) => {
@@ -46,10 +47,8 @@ console.log('targetValue', targetValue, book)
         let bookImage = ''
     
         if (idInShelf.indexOf(book.id) !== -1) {
-console.log('found book', book)
           const bookObject = allBooks.filter(bookChecked => bookChecked.id === book.id)
           defaultShelf = bookObject[0].shelf
-console.log('bookObject', bookObject)
         }
 
         if (book.hasOwnProperty('imageLinks')) {
@@ -81,7 +80,7 @@ console.log('bookObject', bookObject)
     return (
       <div className="search-books">
         <div className="search-books-bar">
-          <a className="close-search" onClick={() => this.props.onPageSetting(false)}>Close</a>
+          <Link className="close-search" to='/'>Close</Link>
           <div className="search-books-input-wrapper">
             {/*
               NOTES: The search from BooksAPI is limited to a particular set of search terms.
@@ -92,7 +91,7 @@ console.log('bookObject', bookObject)
               you don't find a specific author or title. Every search is limited by search terms.
             */}
             <input type="text" placeholder="Search by title or author"
-               value={this.state.query} onChange={(e) => this.searchResult(e.target.value)}
+              onChange={(e) => this.searchResult(e.target.value)}
             />
 
           </div>

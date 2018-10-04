@@ -3,6 +3,7 @@ import * as BooksAPI from './BooksAPI'
 import './App.css'
 import ListBooks from './ListBooks'
 import SearchBooks from './SearchBooks'
+import { Route } from 'react-router-dom'
 
 class BooksApp extends React.Component {
   state = {
@@ -13,7 +14,6 @@ class BooksApp extends React.Component {
      * users can use the browser's back and forward buttons to navigate between
      * pages, as well as provide a good URL they can bookmark and share.
      */
-    showSearchPage: true
   }
 
   componentDidMount() {
@@ -39,13 +39,12 @@ class BooksApp extends React.Component {
 console.log('booksInShelf', this.state.allBooks)      
     return (
       <div className="app">
-        {this.state.showSearchPage ? (
+        <Route exact path='/' render={() => (
+          <ListBooks allBooks={this.state.allBooks} onMoveBook={ this.moveBook } onPageSetting={ this.pageSetting }/>
+        )}/>
+        <Route path='/search' render={() => (
           <SearchBooks onPageSetting={this.pageSetting} onMoveBook={this.moveBook} allBooks={this.state.allBooks}/>
-        ) : (
-          <div>
-            <ListBooks allBooks={this.state.allBooks} onMoveBook={ this.moveBook } onPageSetting={ this.pageSetting }/>
-          </div>
-        )}
+        )}/>
       </div>
     )
   }
