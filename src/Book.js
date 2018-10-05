@@ -10,15 +10,18 @@ class Book extends React.Component {
 	    allBooks: PropTypes.array.isRequired
 	}
 
-	// function for move books between shelves
+// function for move books between shelves
+
   	moveBook = (book, shelf) => {
+console.log('before moveBook', book, shelf)
 	    BooksAPI.update(book, shelf)
-	    	.then(() => {
+	    	.then((books) => {
 	    		BooksAPI.getAll()
 			      .then((books) => {
 			        this.setState({ allBooks: books })
 			})
 	    })
+console.log('after moveBook', book, shelf)
 	 }
 
 	render() {
