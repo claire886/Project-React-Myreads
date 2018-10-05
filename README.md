@@ -11,9 +11,9 @@ In main page, users can move books between three bookshelves: Currently Reading,
 * install 'react-router-dom' with 'npm install --save react-router-dom'
 
 
-## Newly added files
+## Newly added files to starter code
 
-Four React code files are added into src folder. These files are ListBooks, BookShelfBooks, SearchBooks and Books.
+Four React code files are added into src folder. These files are React component: ListBooks, BookShelfBooks, SearchBooks and Books. ListBooks, BookShelfBooks and Books are used for main page. SerachBooks and Books are used for search page.
 
 ## Important
 The backend API uses a fixed set of cached search results and is limited to a particular set of search terms, which can be found in [SEARCH_TERMS.md](SEARCH_TERMS.md). That list of terms are the _only_ terms that will work with the backend, so don't be surprised if your searches for Basket Weaving or Bubble Wrap don't come back with any results.
