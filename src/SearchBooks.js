@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import * as BooksAPI from './BooksAPI'
 import { Link } from 'react-router-dom'
+import Book from './Book'
 
 class SearchBooks extends React.Component {
 
@@ -33,6 +34,7 @@ class SearchBooks extends React.Component {
   render() {
     const moveToShelf = this.props.onMoveBook
     const allBooks = this.props.allBooks
+    const bookToList = this.state.resultBooks
     // Generating an array of book id for books in bookshelf.
     // It can be used to select correct shelf in select options
     let idInShelf = this.props.allBooks.map(book => book.id)
@@ -41,11 +43,11 @@ class SearchBooks extends React.Component {
     // If both book query and search result are not empty,
     // book-grid will be built according rearch result by map method
     if (this.state.query && this.state.resultBooks.length > 0) {
-      bookList = this.state.resultBooks.map(function(book) {
+      bookList = bookToList.map(function(book) {
         let defaultShelf ='none'
         // Use 'bookImage' for url link in case the book object doesn't have property for url link.
-        let bookImage = ''
-        
+        // If book has property of imageLinks, 'bookImage' is set to be book.imageLinks.thumbnail
+        const bookImage = (book.imageLinks) ? (book.imageLinks.thumbnail) : ('')
         // Check if book is already in bookshelf.
         // If the book can be found in bookshelf, using filter method to look for its bookshelf.
         // The select options will be assigned according to bookshelf.
@@ -53,10 +55,7 @@ class SearchBooks extends React.Component {
           const bookObject = allBooks.filter(bookChecked => bookChecked.id === book.id)
           defaultShelf = bookObject[0].shelf
         }
-        // If book has property of imageLinks, 'bookImage' is set to be book.imageLinks.thumbnail
-        if (book.hasOwnProperty('imageLinks')) {
-          bookImage = book.imageLinks.thumbnail
-        }
+        
         return (
             <li key={book.id}>
               <div className="book">

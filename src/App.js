@@ -18,25 +18,17 @@ class BooksApp extends React.Component {
         this.setState({ allBooks: books })
     })
   }
-  // function for move books between shelves
-  moveBook = (book, shelf) => {
-    BooksAPI.update(book, shelf)
-    BooksAPI.getAll()
-      .then((books) => {
-        this.setState({ allBooks: books })
-    })
-  }
 
   render() {
     return (
       <div className="app">
         <Route exact path='/' render={() => (
           // Showing books in shelves by component 'ListBook'
-          <ListBooks allBooks={ this.state.allBooks } onMoveBook={ this.moveBook } onPageSetting={ this.pageSetting }/>
+          <ListBooks allBooks={ this.state.allBooks } onPageSetting={ this.pageSetting }/>
         )}/>
         <Route path='/search' render={() => (
           // Showing search page by component 'SearchBooks'
-          <SearchBooks onPageSetting={ this.pageSetting } onMoveBook={ this.moveBook } allBooks={ this.state.allBooks }/>
+          <SearchBooks onPageSetting={ this.pageSetting } allBooks={ this.state.allBooks }/>
         )}/>
       </div>
     )}}
