@@ -12,13 +12,14 @@ class BookshelfBooks extends React.Component {
 
 	render() {
 		const bookshelfTitle = this.props.bookshelfTitle
+		const allBooks = this.props.allBooks
 		// Filtering books according to bookshelf(bookshelfTitile)
 		// so that the correct shelf is selected in select options
 		const bookToList = this.props.allBooks.filter(book => (book.shelf === bookshelfTitle))
 
 		return (
 			<div className="bookshelf-books">
-	        	<Book bookToList={ bookToList } currentShelf={ this.props.bookshelfTitle } />
+	        	<Book allBooks={ allBooks } bookToList={ bookToList } currentShelf={ this.props.bookshelfTitle } />
 	    	</div>
 		)
 	}

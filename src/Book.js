@@ -7,17 +7,19 @@ class Book extends React.Component {
 	    bookToList: PropTypes.array.isRequired,
 	    currentShelf: PropTypes.string.isRequired,
 	    idInShelf: PropTypes.array,
-	    allBooks: PropTypes.array
+	    allBooks: PropTypes.array.isRequired
 	}
 
 	// function for move books between shelves
   	moveBook = (book, shelf) => {
 	    BooksAPI.update(book, shelf)
-	    BooksAPI.getAll()
-	      .then((books) => {
-	        this.setState({ allBooks: books })
+	    	.then(() => {
+	    		BooksAPI.getAll()
+			      .then((books) => {
+			        this.setState({ allBooks: books })
+			})
 	    })
-	  }
+	 }
 
 	render() {
 		const moveBook = this.moveBook

@@ -48,7 +48,7 @@ class SearchBooks extends React.Component {
         </div>
         <div className="search-books-results">
           {(this.state.query && this.state.resultBooks.length > 0) ? (
-            <Book bookToList={ bookToList } currentShelf='none' idInShelf={ idInShelf } allBooks={ allBooks } />
+            <Book allBooks={ allBooks } bookToList={ bookToList } currentShelf='none' idInShelf={ idInShelf } />
             ) : (
             <div></div>
             )}
