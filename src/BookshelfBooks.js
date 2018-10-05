@@ -8,6 +8,7 @@ class BookshelfBooks extends React.Component {
 		// 'bookshelfTitle' for identifying bookshelf
 		bookshelfTitle: PropTypes.string.isRequired,
 		allBooks: PropTypes.array.isRequired,
+	    moveBook: PropTypes.func.isRequired
 	}
 
 	render() {
@@ -19,7 +20,7 @@ class BookshelfBooks extends React.Component {
 
 		return (
 			<div className="bookshelf-books">
-	        	<Book allBooks={ allBooks } bookToList={ bookToList } currentShelf={ this.props.bookshelfTitle } />
+	        	<Book allBooks={ allBooks } bookToList={ bookToList } currentShelf={ this.props.bookshelfTitle } moveBook={ this.props.moveBook} />
 	    	</div>
 		)
 	}

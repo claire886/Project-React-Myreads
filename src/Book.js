@@ -1,31 +1,18 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import * as BooksAPI from './BooksAPI'
 
 class Book extends React.Component {
 	static propTypes = {
 	    bookToList: PropTypes.array.isRequired,
 	    currentShelf: PropTypes.string.isRequired,
 	    idInShelf: PropTypes.array,
-	    allBooks: PropTypes.array.isRequired
+	    allBooks: PropTypes.array.isRequired,
+        moveBook: PropTypes.func.isRequired
+
 	}
 
-// function for move books between shelves
-
-  	moveBook = (book, shelf) => {
-console.log('before moveBook', book, shelf)
-	    BooksAPI.update(book, shelf)
-	    	.then((books) => {
-	    		BooksAPI.getAll()
-			      .then((books) => {
-			        this.setState({ allBooks: books })
-			})
-	    })
-console.log('after moveBook', book, shelf)
-	 }
-
 	render() {
-		const moveBook = this.moveBook
+		const moveBook = this.props.moveBook
 		const idInShelf = this.props.idInShelf
 	    const bookToList = this.props.bookToList
 	    const allBooks = this.props.allBooks

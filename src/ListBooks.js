@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom'
 class ListBooks extends React.Component {
 	static propTypes = {
 		allBooks: PropTypes.array.isRequired,
+    moveBook: PropTypes.func.isRequired
 	}
 
 	render() {
@@ -21,15 +22,15 @@ class ListBooks extends React.Component {
             <div className="list-books-content">
                 <div className="bookshelf">
                   	<h2 className="bookshelf-title">Currently Reading</h2> 
-		            <BookshelfBooks allBooks={ allBooks } bookshelfTitle= 'currentlyReading' />
+		            <BookshelfBooks allBooks={ allBooks } bookshelfTitle= 'currentlyReading' moveBook={ this.props.moveBook} />
                 </div>
                 <div className="bookshelf">
                   	<h2 className="bookshelf-title">Want to Read</h2>
-                    <BookshelfBooks allBooks={ allBooks } bookshelfTitle= 'wantToRead' />
+                    <BookshelfBooks allBooks={ allBooks } bookshelfTitle= 'wantToRead' moveBook={ this.props.moveBook} />
                 </div>
                 <div className="bookshelf">
                   	<h2 className="bookshelf-title">Read</h2>
-                    <BookshelfBooks allBooks={ allBooks } bookshelfTitle= 'read' />
+                    <BookshelfBooks allBooks={ allBooks } bookshelfTitle= 'read' moveBook={ this.props.moveBook} />
                 </div>
             </div>
             <div className="open-search">

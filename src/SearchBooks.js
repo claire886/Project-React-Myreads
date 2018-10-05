@@ -7,7 +7,8 @@ import Book from './Book'
 class SearchBooks extends React.Component {
 
   static propTypes = {
-    allBooks: PropTypes.array.isRequired
+    allBooks: PropTypes.array.isRequired,
+    moveBook: PropTypes.func.isRequired
   }
 
   state = {
@@ -48,7 +49,7 @@ class SearchBooks extends React.Component {
         </div>
         <div className="search-books-results">
           {(this.state.query && this.state.resultBooks.length > 0) ? (
-            <Book allBooks={ allBooks } bookToList={ bookToList } currentShelf='none' idInShelf={ idInShelf } />
+            <Book allBooks={ allBooks } bookToList={ bookToList } currentShelf='none' idInShelf={ idInShelf } moveBook={ this.props.moveBook} />
             ) : (
             <div></div>
             )}
