@@ -7,9 +7,8 @@ import Book from './Book'
 class SearchBooks extends React.Component {
 
   static propTypes = {
-    onMoveBook: PropTypes.func.isRequired,
     allBooks: PropTypes.array.isRequired
-}
+  }
 
   state = {
     // use 'resultBooks' for search result data
@@ -32,53 +31,12 @@ class SearchBooks extends React.Component {
   }
 
   render() {
-    const moveToShelf = this.props.onMoveBook
     const allBooks = this.props.allBooks
     const bookToList = this.state.resultBooks
     // Generating an array of book id for books in bookshelf.
     // It can be used to select correct shelf in select options
     let idInShelf = this.props.allBooks.map(book => book.id)
-    // 'bookList' for saving HTML for <ol .book-grid>
-    let bookList = []
-    // If both book query and search result are not empty,
-    // book-grid will be built according rearch result by map method
-    if (this.state.query && this.state.resultBooks.length > 0) {
-      bookList = bookToList.map(function(book) {
-        let defaultShelf ='none'
-        // Use 'bookImage' for url link in case the book object doesn't have property for url link.
-        // If book has property of imageLinks, 'bookImage' is set to be book.imageLinks.thumbnail
-        const bookImage = (book.imageLinks) ? (book.imageLinks.thumbnail) : ('')
-        // Check if book is already in bookshelf.
-        // If the book can be found in bookshelf, using filter method to look for its bookshelf.
-        // The select options will be assigned according to bookshelf.
-        if (idInShelf.indexOf(book.id) !== -1) {
-          const bookObject = allBooks.filter(bookChecked => bookChecked.id === book.id)
-          defaultShelf = bookObject[0].shelf
-        }
-        
-        return (
-            <li key={book.id}>
-              <div className="book">
-                <div className="book-top">
-                  <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${ bookImage })`}}></div>
-                  <div className="book-shelf-changer">
-                    <select defaultValue={defaultShelf} onChange={(e) => moveToShelf(book, e.target.value)}>
-                      <option value="move" disabled>Move to...</option>
-                      <option value="currentlyReading">Currently Reading</option>
-                      <option value="wantToRead">Want to Read</option>
-                      <option value="read">Read</option>
-                      <option value='none'>None</option>
-                    </select>
-                  </div>
-                </div>
-                <div className="book-title">{ book.title }</div>
-                <div className="book-authors">{ book.authors }</div>
-              </div>
-            </li>
-        )
-      })
-    }
-
+    
     return (
       <div className="search-books">
         <div className="search-books-bar">
@@ -89,9 +47,11 @@ class SearchBooks extends React.Component {
           </div>
         </div>
         <div className="search-books-results">
-          <ol className="books-grid">
-          { bookList }
-          </ol>
+          {(this.state.query && this.state.resultBooks.length > 0) ? (
+            <Book bookToList={ bookToList } currentShelf='none' idInShelf={ idInShelf } allBooks={ allBooks } />
+            ) : (
+            <div></div>
+            )}
         </div>
       </div>
     )

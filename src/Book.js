@@ -5,7 +5,9 @@ import * as BooksAPI from './BooksAPI'
 class Book extends React.Component {
 	static propTypes = {
 	    bookToList: PropTypes.array.isRequired,
-	    currentShelf: PropTypes.string.isRequired
+	    currentShelf: PropTypes.string.isRequired,
+	    idInShelf: PropTypes.array,
+	    allBooks: PropTypes.array
 	}
 
 	// function for move books between shelves
@@ -18,8 +20,10 @@ class Book extends React.Component {
 	  }
 
 	render() {
-		const moveToShelf = this.moveBook
+		const moveBook = this.moveBook
+		const idInShelf = this.props.idInShelf
 	    const bookToList = this.props.bookToList
+	    const allBooks = this.props.allBooks
 	    let defaultShelf = this.props.currentShelf
 	    // 'bookList' for saving HTML for <ol .book-grid>
 	    let bookList = []
@@ -29,6 +33,15 @@ class Book extends React.Component {
 	        // If book has property of imageLinks, 'bookImage' is set to be book.imageLinks.thumbnail
 	        const bookImage = (book.imageLinks) ? (book.imageLinks.thumbnail) : ('')
 	        const bookAuthors = (book.authors) ? (book.authors.join(', ')) : ('')
+	        // If isInShelf is true, that means the request is from search page.
+	        // Set default to be 'none' and then see if the book is already in bookshelf.
+	        if (idInShelf) {
+	        	defaultShelf = 'none'
+		        if (idInShelf.indexOf(book.id) !== -1) {
+		          const bookObject = allBooks.filter(bookChecked => bookChecked.id === book.id)
+		          defaultShelf = bookObject[0].shelf
+		        }
+	        }
         
 	        return (
 	            <li key={book.id}>
@@ -36,7 +49,7 @@ class Book extends React.Component {
 	                <div className="book-top">
 	                  <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${ bookImage })`}}></div>
 	                  <div className="book-shelf-changer">
-	                    <select defaultValue={defaultShelf} onChange={(e) => moveToShelf(book, e.target.value)}>
+	                    <select defaultValue={defaultShelf} onChange={(e) => moveBook(book, e.target.value)}>
 	                      <option value="move" disabled>Move to...</option>
 	                      <option value="currentlyReading">Currently Reading</option>
 	                      <option value="wantToRead">Want to Read</option>
