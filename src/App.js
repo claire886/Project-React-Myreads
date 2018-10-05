@@ -20,12 +20,14 @@ class BooksApp extends React.Component {
   }
   // function for move books between shelves
   moveBook = (book, shelf) => {
-    BooksAPI.update(book, shelf)
-    BooksAPI.getAll()
-      .then((books) => {
-        this.setState({ allBooks: books })
-    })
-  }
+      BooksAPI.update(book, shelf)
+        .then((books) => {
+          BooksAPI.getAll()
+            .then((books) => {
+              this.setState({ allBooks: books })
+        })
+      })
+   }
 
   render() {
     return (
